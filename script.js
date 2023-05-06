@@ -127,7 +127,7 @@ function checkTranslationsHandler(currentCard) {
         allCards.forEach(card => {
             card.classList.remove('correct');
             card.classList.remove('wrong');
-        })
+        });
         currentCard.style.pointerEvents = "none";
         currentCard.classList.add('correct');
         selectedCard = currentCard;
@@ -138,8 +138,28 @@ function checkTranslationsHandler(currentCard) {
             currentCard.classList.add('correct');
             currentCard.classList.add('fade-out');
             selectedCard.classList.add('fade-out');
+            const allCards = document.querySelectorAll('.card');
+            let allCardsFaded = true;
+            allCards.forEach(card => {
+                if (!card.classList.contains('fade-out')) {
+                    allCardsFaded = false;
+                }
+            });
+            if (allCardsFaded) {
+                setTimeout(() => {
+                    alert('Проверка знаний завершена! Ты молодец!');
+                }, 1000);
+            }
         } else {
+            selectedCard.classList.add('correct');
             currentCard.classList.add('wrong');
+            setTimeout(() => {
+                const allCards = document.querySelectorAll('.card');
+                allCards.forEach(card => {
+                    card.classList.remove('correct');
+                    card.classList.remove('wrong');
+                });
+            }, 500);
             currentCard.style.pointerEvents = "all";
             selectedCard.style.pointerEvents = "all";
         }
